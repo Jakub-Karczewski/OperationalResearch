@@ -1,0 +1,1 @@
+# BadaniaOperacyjne2025
