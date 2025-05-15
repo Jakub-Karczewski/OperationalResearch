@@ -1,0 +1,1 @@
+g++ genetic.cpp bo_base.cpp -o genetic_solve.out

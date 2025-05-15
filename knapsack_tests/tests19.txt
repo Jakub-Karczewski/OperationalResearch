@@ -1,0 +1,42 @@
+===TEST CASE===
+
+Input:
+2
+4 4 4 171
+2 2 6 124
+6
+2 2 1 1 15 50
+1 1 4 1 32 34
+2 2 3 1 42 16
+1 4 4 1 31 86
+3 4 1 1 48 72
+3 3 1 1 29 48
+
+
+Genetic Output:
+Best solution found: 
+package_id: 0 vehicle_id: 0 package_position: (2, 2, 0) 
+Total profit: 15
+
+
+Computation time: 0.10s
+
+Heuristic Output:
+Best solution found: 
+package_id: 0 vehicle_id: 0 package_position: (2, 2, 0) 
+Total profit: 15
+
+
+Computation time: 0.01s
+
+Knapsack Output:
+Best solution found: 
+4
+package_id: 0 vehicle_id: 1 package_position: (0, 0, 0) 
+package_id: 3 vehicle_id: 0 package_position: (3, 0, 0) 
+package_id: 4 vehicle_id: 0 package_position: (0, 0, 0) 
+package_id: 5 vehicle_id: 0 package_position: (0, 0, 1) 
+Total profit: 256
+
+
+Computation time: 0.08s

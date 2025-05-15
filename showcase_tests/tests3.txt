@@ -1,0 +1,99 @@
+===TEST CASE===
+
+Input:
+3
+13 11 12 81
+17 14 11 143
+20 15 17 89
+50
+8 8 1 2 39 78
+5 9 4 4 48 51
+2 3 1 5 49 15
+1 7 7 4 35 71
+4 7 1 4 11 85
+8 5 8 2 32 96
+1 2 3 3 33 58
+5 6 7 5 35 44
+9 2 8 4 43 67
+4 10 5 5 18 58
+2 6 4 5 40 70
+2 6 8 3 40 51
+4 3 6 1 15 67
+10 10 2 2 9 63
+7 9 4 5 46 71
+4 6 6 3 49 89
+2 8 1 5 19 31
+6 3 3 1 29 34
+9 3 10 1 33 71
+1 6 5 4 14 89
+7 7 10 2 25 54
+10 10 3 5 45 28
+6 5 2 4 17 27
+6 1 6 4 9 30
+4 3 3 3 29 43
+9 10 5 3 39 82
+9 4 9 5 30 80
+3 5 9 1 8 53
+10 4 8 5 26 13
+8 3 5 2 9 93
+5 1 4 2 48 79
+10 8 7 5 16 52
+7 9 9 2 12 19
+7 8 2 1 33 76
+8 3 2 4 42 29
+5 8 10 1 31 81
+9 3 2 1 45 30
+6 7 8 5 17 19
+1 6 3 1 48 95
+2 3 7 2 49 65
+9 9 4 4 13 12
+1 9 10 4 20 92
+4 2 4 1 43 45
+10 3 8 4 18 13
+1 6 7 3 38 52
+2 4 2 2 20 65
+8 6 4 1 12 63
+9 8 8 2 16 15
+3 7 8 3 35 26
+7 10 5 3 48 51
+
+
+Genetic Output:
+Best solution found: 
+package_id: 0 vehicle_id: 1 package_position: (15, 6, 0) 
+package_id: 1 vehicle_id: 2 package_position: (16, 5, 0) 
+package_id: 2 vehicle_id: 0 package_position: (4, 7, 0) 
+package_id: 3 vehicle_id: 0 package_position: (11, 1, 0) 
+package_id: 4 vehicle_id: 2 package_position: (6, 7, 0) 
+package_id: 5 vehicle_id: 1 package_position: (5, 4, 0) 
+package_id: 8 vehicle_id: 2 package_position: (19, 6, 5) 
+package_id: 9 vehicle_id: 2 package_position: (18, 9, 5) 
+package_id: 12 vehicle_id: 2 package_position: (12, 8, 7) 
+package_id: 13 vehicle_id: 2 package_position: (14, 4, 0) 
+package_id: 15 vehicle_id: 1 package_position: (9, 7, 3) 
+package_id: 16 vehicle_id: 1 package_position: (5, 8, 3) 
+package_id: 17 vehicle_id: 1 package_position: (9, 1, 0) 
+Total profit: 816
+
+
+Computation time: 20.59s
+
+Heuristic Output:
+Best solution found: 
+package_id: 0 vehicle_id: 1 package_position: (15, 6, 0) 
+package_id: 1 vehicle_id: 2 package_position: (16, 5, 0) 
+package_id: 2 vehicle_id: 0 package_position: (4, 7, 0) 
+package_id: 3 vehicle_id: 0 package_position: (11, 1, 0) 
+package_id: 4 vehicle_id: 2 package_position: (6, 7, 0) 
+package_id: 5 vehicle_id: 1 package_position: (5, 4, 0) 
+package_id: 8 vehicle_id: 2 package_position: (19, 6, 5) 
+package_id: 9 vehicle_id: 2 package_position: (18, 9, 5) 
+package_id: 12 vehicle_id: 2 package_position: (12, 8, 7) 
+package_id: 13 vehicle_id: 2 package_position: (14, 4, 0) 
+package_id: 15 vehicle_id: 1 package_position: (9, 7, 3) 
+package_id: 16 vehicle_id: 1 package_position: (5, 8, 3) 
+package_id: 17 vehicle_id: 1 package_position: (9, 1, 0) 
+Total profit: 816
+
+
+Computation time: 0.21s

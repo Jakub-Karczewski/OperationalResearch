@@ -1,0 +1,1 @@
+g++ heuristic.cpp bo_base.cpp -o heuristic_solve.out

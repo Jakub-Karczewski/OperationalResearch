@@ -1,0 +1,115 @@
+===TEST CASE===
+
+Input:
+3
+16 16 20 197
+17 11 14 149
+12 11 17 199
+50
+8 1 9 5 26 43
+1 4 9 5 40 38
+5 8 5 1 12 21
+9 6 1 4 20 19
+10 5 7 2 50 85
+8 7 7 1 10 82
+8 9 3 4 47 89
+9 4 8 3 48 87
+7 7 7 3 21 64
+8 10 2 4 24 66
+2 5 9 2 27 11
+10 9 3 4 32 36
+8 7 6 3 48 34
+5 2 7 2 9 10
+9 4 9 1 10 65
+2 1 7 2 41 67
+3 10 10 5 38 14
+9 9 9 2 26 31
+5 7 4 4 33 73
+6 5 10 2 6 60
+6 1 5 1 12 34
+7 9 1 4 47 57
+10 6 2 3 35 32
+4 10 3 5 32 43
+9 2 2 1 38 39
+7 4 7 3 34 60
+7 2 7 3 7 50
+3 4 3 1 46 65
+6 4 2 1 25 40
+10 7 5 2 41 65
+8 8 6 3 22 89
+2 5 8 4 19 60
+6 9 5 4 5 62
+1 1 2 4 49 82
+8 6 8 1 20 94
+2 4 8 2 23 74
+5 7 5 3 8 23
+3 8 8 2 38 46
+9 5 3 3 47 43
+10 1 9 1 43 35
+1 3 5 1 6 30
+3 2 10 3 9 79
+4 8 5 1 15 22
+3 5 1 1 6 94
+8 2 1 3 17 93
+9 9 8 1 41 65
+2 9 4 1 36 100
+6 3 6 4 34 33
+2 7 7 1 45 34
+9 2 6 4 36 77
+
+
+Genetic Output:
+Best solution found: 
+package_id: 0 vehicle_id: 2 package_position: (4, 10, 0) 
+package_id: 1 vehicle_id: 2 package_position: (8, 0, 0) 
+package_id: 2 vehicle_id: 2 package_position: (11, 6, 3) 
+package_id: 3 vehicle_id: 1 package_position: (9, 2, 0) 
+package_id: 4 vehicle_id: 0 package_position: (13, 6, 0) 
+package_id: 5 vehicle_id: 0 package_position: (15, 15, 10) 
+package_id: 6 vehicle_id: 1 package_position: (8, 0, 0) 
+package_id: 7 vehicle_id: 1 package_position: (12, 4, 3) 
+package_id: 8 vehicle_id: 0 package_position: (6, 7, 0) 
+package_id: 9 vehicle_id: 2 package_position: (0, 0, 0) 
+package_id: 10 vehicle_id: 2 package_position: (2, 1, 2) 
+package_id: 11 vehicle_id: 1 package_position: (10, 6, 3) 
+package_id: 12 vehicle_id: 0 package_position: (8, 4, 0) 
+package_id: 13 vehicle_id: 0 package_position: (13, 13, 10) 
+package_id: 14 vehicle_id: 1 package_position: (12, 4, 7) 
+package_id: 15 vehicle_id: 2 package_position: (10, 2, 3) 
+package_id: 16 vehicle_id: 0 package_position: (6, 9, 1) 
+package_id: 17 vehicle_id: 1 package_position: (3, 6, 0) 
+package_id: 21 vehicle_id: 0 package_position: (11, 4, 1) 
+package_id: 23 vehicle_id: 2 package_position: (10, 10, 9) 
+package_id: 25 vehicle_id: 2 package_position: (5, 5, 7) 
+Total profit: 1268
+
+
+Computation time: 69.79s
+
+Heuristic Output:
+Best solution found: 
+package_id: 0 vehicle_id: 2 package_position: (4, 10, 0) 
+package_id: 1 vehicle_id: 2 package_position: (8, 0, 0) 
+package_id: 2 vehicle_id: 2 package_position: (11, 6, 3) 
+package_id: 3 vehicle_id: 1 package_position: (9, 2, 0) 
+package_id: 4 vehicle_id: 0 package_position: (13, 6, 0) 
+package_id: 5 vehicle_id: 0 package_position: (15, 15, 10) 
+package_id: 6 vehicle_id: 1 package_position: (8, 0, 0) 
+package_id: 7 vehicle_id: 1 package_position: (12, 4, 3) 
+package_id: 8 vehicle_id: 0 package_position: (6, 7, 0) 
+package_id: 9 vehicle_id: 2 package_position: (0, 0, 0) 
+package_id: 10 vehicle_id: 2 package_position: (2, 1, 2) 
+package_id: 11 vehicle_id: 1 package_position: (10, 6, 3) 
+package_id: 12 vehicle_id: 0 package_position: (8, 4, 0) 
+package_id: 13 vehicle_id: 0 package_position: (13, 13, 10) 
+package_id: 14 vehicle_id: 1 package_position: (12, 4, 7) 
+package_id: 15 vehicle_id: 2 package_position: (10, 2, 3) 
+package_id: 16 vehicle_id: 0 package_position: (6, 9, 1) 
+package_id: 17 vehicle_id: 1 package_position: (3, 6, 0) 
+package_id: 21 vehicle_id: 0 package_position: (11, 4, 1) 
+package_id: 23 vehicle_id: 2 package_position: (10, 10, 9) 
+package_id: 25 vehicle_id: 2 package_position: (5, 5, 7) 
+Total profit: 1268
+
+
+Computation time: 0.31s

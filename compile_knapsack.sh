@@ -1,0 +1,1 @@
+g++ knapsack.cpp bo_base.cpp -o knapsack_solve.out

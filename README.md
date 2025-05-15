@@ -1,1 +1,1 @@
-# BadaniaOperacyjne2025
+# BO2025

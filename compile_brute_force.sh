@@ -1,0 +1,1 @@
+g++ brute_force.cpp bo_base.cpp -o solve_brut.out
