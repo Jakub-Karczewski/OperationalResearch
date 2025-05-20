@@ -17,8 +17,11 @@ bool Position::operator==(const Position& other) const {
 bool does_fit(const unordered_map<Position, bool> &free_positions, const Package &act_pkg, const Vehicle &veh1, const Position &pos1){
     for (int x = pos1.x; x <= pos1.x + act_pkg.size.x; x++ ){
         for (int y = pos1.y; y <= pos1.y + act_pkg.size.y; y++ ){
+            if(pos1.z > 0 && free_positions.at({x, y, pos1.z - 1})){
+                return false;
+            }
             for (int z = pos1.z; z <= pos1.z + act_pkg.size.z; z++ ){
-                if(!free_positions.at(Position{x, y, z}) || (pos1.z > 0 && free_positions.at({x, y, z - 1}))){
+                if(!free_positions.at(Position{x, y, z})){
                     return false;
                 }
             }
@@ -82,8 +85,8 @@ pair<long long, vector<Solution> > knapsack_problem(const vector<Package> &packa
                     weights[i] += act_pkg.weight;
                     pair<long long, vector<Solution>> take_res = knapsack_problem(packages, where_placed, pkg_IDs,
                                                                                   free_positions, ID + 1, val + act_pkg.cost,
-                                                                                  weights, prefix_sum,
-                                                                                  taken, vehicles, veh_IDs);
+                                                                                  weights, prefix_sum,taken, vehicles, veh_IDs);
+
                     if (take_res.first > max_res) {
                         maxi_val = std::move(take_res);
                         max_res = maxi_val.first;
@@ -96,7 +99,7 @@ pair<long long, vector<Solution> > knapsack_problem(const vector<Package> &packa
                             }
                         }
                     }
-                    if (ID < packages.size() - 1 && max_res - val == prefix_sum[ID + 1] && max_res >= dont_take) {
+                    if (ID < packages.size() - 1 && max_res - val == prefix_sum[ID] && max_res >= dont_take) {
                         taken[ID] = false;
                         return maxi_val;
                     }
@@ -117,8 +120,8 @@ ostream& operator<<(ostream& os, const Position &pos) {
     return os;
 }
 
-Package::Package(Position size, int weight, int cost)
-        : size{ size }, weight{ weight }, cost{ cost } {
+Package::Package(Position size, int weight, int cost, int id)
+        : size{ size }, weight{ weight }, cost{ cost }, ID{id} {
 }
 
 
@@ -199,12 +202,6 @@ tuple<vector<Solution>, int> compute_solutions(vector<Package>& packages,
     unordered_map<int, long long> vehicle_weights;
     unordered_map<int, unordered_set<Position>> vehicle_filled_positions;
 
-    sort(packages.begin(), packages.end(),
-         [](const Package& a,
-            const Package& b) {
-             return b.cost <= a.cost;
-         });
-
     for (size_t package_id = 0; package_id < packages.size(); ++package_id) {
         const Package& package = packages[package_id];
 
@@ -252,7 +249,7 @@ tuple<vector<Solution>, int> compute_solutions(vector<Package>& packages,
                                 continue;
                         }
 
-                        solutions.emplace_back(pos, package_id, vehicle_id);
+                        solutions.emplace_back(pos, packages[package_id].ID, vehicle_id);
                         vehicle_weights[vehicle_id] += package.weight;
 
                         for (int dx = 0; dx < package.size.x; ++dx) {

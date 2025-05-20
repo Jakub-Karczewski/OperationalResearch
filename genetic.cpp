@@ -4,10 +4,11 @@
 #include "crossovers/one_point_crossover.h"
 #include "crossovers/heuristic_crossover.h"
 
-#define POPULATION_SIZE 200
-#define CHILDREN_PERCENTAGE 80
-#define MUTATION_PERCENTAGE 25
-#define GENE_MUTATION_PERCENTAGE 40
+int POPULATION_SIZE = 200;
+int CHILDREN_PERCENTAGE = 80;
+int MUTATION_PERCENTAGE = 25;
+int GENE_MUTATION_PERCENTAGE = 40;
+
 
 using namespace std;
 
@@ -37,23 +38,22 @@ Assignment generate_random_assignment(int num_of_packages, int num_of_vehicles) 
 
 // Uzywa wczesniej zaimplementowanej heurystyki do ulozenia paczek we wskazanych pojazdach.
 pair<vector<Solution>, int> build_solution_from_assignment(const Assignment& assignment, const vector<Package>& packages, const vector<Vehicle>& vehicles) {
-    vector<vector<Package>> packages_per_vechicles(vehicles.size());
-    vector<vector<int>> package_ids_per_vechicles(vehicles.size());
+    vector<vector<Package>> packages_per_vehicles(vehicles.size());
+    vector<vector<int>> package_ids_per_vehicles(vehicles.size());
     for(int i=0;i<assignment.size();i++) {
-        packages_per_vechicles[assignment[i]].push_back(packages[i]);
-        package_ids_per_vechicles[assignment[i]].push_back(i);
+        packages_per_vehicles[assignment[i]].push_back(packages[i]);
+        package_ids_per_vehicles[assignment[i]].push_back(packages[i].ID);
     }
 
     pair<vector<Solution>, int> solutions;
     for(int i=0;i<vehicles.size();i++) {
-        if(packages_per_vechicles[i].size()>0) {
+        if(packages_per_vehicles[i].size()>0) {
             vector<Vehicle> tmp1 = {vehicles[i]};
-            tuple<vector<Solution>, int> tmp2 = compute_solutions(packages_per_vechicles[i], tmp1);
+            tuple<vector<Solution>, int> tmp2 = compute_solutions(packages_per_vehicles[i], tmp1);
             auto [computed_solutions, cost] = tmp2;
             solutions.second += cost;
             for(int j=0;j<computed_solutions.size();j++) {
                 computed_solutions[j].vehicle_id = i;
-                computed_solutions[j].package_id = package_ids_per_vechicles[i][j];
             }
 
             solutions.first.insert(solutions.first.begin(), computed_solutions.begin(), computed_solutions.end());
@@ -99,12 +99,21 @@ void sort_population_by_evaluation_in_place(vector<Assignment> population, const
     }
 }
 
-vector<Assignment> reproduce_best(const vector<Assignment>& best_assignments, int population_size, int num_vehicles, const vector<Package>& packages, const vector<Vehicle>& vehicles) {
+vector<Assignment> reproduce_best(const vector<Assignment>& best_assignments, int population_size, int num_vehicles, const vector<Package>& packages, const vector<Vehicle>& vehicles, const string& crossover_type) {
     // Przyjmuje najlepsze assignmenty i krzyżuje je, zwraca populację dzieci
     vector<Assignment> new_population;
 
     for(int i=0;i<population_size * (100 - CHILDREN_PERCENTAGE) / 100;i++) {
         new_population.push_back(best_assignments[i]);
+    }
+
+    unique_ptr<CrossoverStrategy> crossover;
+    if (crossover_type == "uniform") {
+        crossover = std::make_unique<UniformCrossover>();
+    } else if (crossover_type == "one_point") {
+        crossover = std::make_unique<OnePointCrossover>();
+    } else if (crossover_type == "heuristic") {
+        crossover = std::make_unique<HeuristicCrossover>(packages, vehicles);
     }
 
     mt19937 rng(random_device{}());
@@ -122,10 +131,7 @@ vector<Assignment> reproduce_best(const vector<Assignment>& best_assignments, in
         index_1 = clamp(index_1, 0, static_cast<int>(best_assignments.size()) - 1);
         index_2 = clamp(index_2, 0, static_cast<int>(best_assignments.size()) - 1);
         
-        // Topornie sie ustawia, trzeba to poprawic
-        //static UniformCrossover crossover; // UniformCrossover, OnePointCrossover
-        HeuristicCrossover crossover(packages, vehicles);
-        Assignment child_assignment = crossover.crossover(best_assignments[index_1], best_assignments[index_2]);
+        Assignment child_assignment = crossover->crossover(best_assignments[index_1], best_assignments[index_2]);
 
         if (rand() % 100 < MUTATION_PERCENTAGE) {
             child_assignment = mutate_assignment(child_assignment, num_vehicles);
@@ -135,7 +141,7 @@ vector<Assignment> reproduce_best(const vector<Assignment>& best_assignments, in
     return new_population;
 }
 
-tuple<vector<Solution>, int> genetic_algorithm(const vector<Package>& packages, const vector<Vehicle>& vehicles) {
+tuple<vector<Solution>, int> genetic_algorithm(const vector<Package>& packages, const vector<Vehicle>& vehicles, const string& crossover_type) {
     const int generations = 25;
     const int num_packages = packages.size();
     const int num_vehicles = vehicles.size();
@@ -154,11 +160,14 @@ tuple<vector<Solution>, int> genetic_algorithm(const vector<Package>& packages, 
         }
 
         generations_stats.push_back({gen, current_best_cost, best_ever.second});
-        population = reproduce_best(population, POPULATION_SIZE, num_vehicles, packages, vehicles);
+        population = reproduce_best(population, POPULATION_SIZE, num_vehicles, packages, vehicles, crossover_type);
     }
 
     // Zapis statystyk do pliku
-    ofstream stats_file("utils/stats.csv");
+    ofstream stats_file("../utils/stats.csv");
+    if (!stats_file) {
+        std::cerr << "Nie mogę otworzyć pliku stats.csv\n";
+    }
     stats_file << "generation,current_best,best_ever\n";
     for (const auto& s : generations_stats) {
         stats_file << s.generation << "," << s.current_best << "," << s.best_ever << "\n";
@@ -169,7 +178,16 @@ tuple<vector<Solution>, int> genetic_algorithm(const vector<Package>& packages, 
 
 int main() {
     int num_of_vehicles, num_of_packages;
+    string crossover_type;
     srand(time(0));
+
+    cin >> crossover_type;
+    cin >> POPULATION_SIZE >> CHILDREN_PERCENTAGE >> MUTATION_PERCENTAGE >> GENE_MUTATION_PERCENTAGE;
+
+    if (crossover_type != "uniform" && crossover_type != "one_point" && crossover_type != "heuristic") {
+        cerr << "Invalid crossover type. Use 'uniform', 'one_point', or 'heuristic'." << endl;
+        return 1;
+    } 
 
     cin >> num_of_vehicles;
     vector<Vehicle> vehicles;
@@ -185,13 +203,14 @@ int main() {
 
     for (int i = 0; i < num_of_packages; i++) {
         int x, y, z, prio, w, cost;
-        cin >> x >> y >> z >>  w >> cost;
-        packages.emplace_back(Position{ x, y, z }, w, cost);
+        cin >> x >> y >> z >> prio >>  w >> cost;
+        packages.emplace_back(Position{ x, y, z }, w, cost, i);
     }
 
-    auto [solutions, cost] = genetic_algorithm(packages, vehicles);
+    auto [solutions, cost] = genetic_algorithm(packages, vehicles, crossover_type);
 
     cout << "Best solution found: " << endl;
+    cout << "Paramaters: " << POPULATION_SIZE << " " << CHILDREN_PERCENTAGE << " " << MUTATION_PERCENTAGE << " " << GENE_MUTATION_PERCENTAGE << endl;
     sort(solutions.begin(), solutions.end(), [&](Solution a, Solution b){ return a.package_id < b.package_id;});
     for (const auto& sol : solutions) {
         cout << sol << endl;

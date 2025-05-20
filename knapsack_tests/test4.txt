@@ -1,0 +1,100 @@
+===TEST CASE===
+
+Input:
+2
+12 6 14 168
+11 14 15 78
+30
+10 2 7 1 8 14
+4 9 7 1 18 64
+5 3 6 1 8 64
+6 7 1 1 5 70
+8 1 5 1 26 50
+2 1 9 1 30 49
+4 2 2 1 9 97
+3 7 2 1 7 66
+3 2 7 1 20 74
+2 10 9 1 22 61
+10 10 3 1 6 34
+3 10 6 1 5 100
+10 6 6 1 27 10
+7 2 1 1 21 66
+4 6 9 1 8 41
+4 8 3 1 9 94
+10 1 8 1 25 12
+7 10 2 1 9 48
+5 6 7 1 19 96
+10 1 4 1 18 58
+9 9 10 1 5 79
+1 7 2 1 11 54
+4 1 5 1 30 11
+3 5 2 1 26 54
+2 6 6 1 8 42
+8 7 6 1 5 94
+3 4 3 1 15 57
+9 2 8 1 26 36
+7 10 5 1 20 44
+3 6 1 1 7 78
+
+
+Genetic Output:
+Best solution found: 
+
+package_id: 0 vehicle_id: 1 package_position: (1, 12, 0) 
+
+package_id: 2 vehicle_id: 1 package_position: (6, 9, 0) 
+
+package_id: 4 vehicle_id: 0 package_position: (4, 5, 0) 
+
+package_id: 5 vehicle_id: 1 package_position: (9, 11, 6) 
+
+package_id: 6 vehicle_id: 1 package_position: (7, 12, 7) 
+
+package_id: 8 vehicle_id: 0 package_position: (9, 3, 0) 
+
+package_id: 9 vehicle_id: 1 package_position: (4, 2, 0) 
+
+package_id: 23 vehicle_id: 0 package_position: (6, 0, 0) 
+
+package_id: 24 vehicle_id: 0 package_position: (2, 0, 0) 
+
+Total profit: 505
+
+
+
+Computation time: 206.40s
+
+Heuristic Output:
+Best solution found:
+
+package_id: 0 vehicle_id: 0 package_position: (2, 4, 0) 
+
+package_id: 1 vehicle_id: 1 package_position: (7, 5, 0) 
+
+package_id: 2 vehicle_id: 0 package_position: (7, 1, 0) 
+
+package_id: 3 vehicle_id: 1 package_position: (1, 7, 0) 
+
+package_id: 4 vehicle_id: 0 package_position: (4, 5, 7) 
+
+package_id: 5 vehicle_id: 0 package_position: (10, 0, 0) 
+
+package_id: 6 vehicle_id: 0 package_position: (8, 2, 6) 
+
+package_id: 7 vehicle_id: 1 package_position: (8, 7, 7) 
+
+package_id: 8 vehicle_id: 0 package_position: (4, 2, 0) 
+
+package_id: 13 vehicle_id: 0 package_position: (0, 0, 0) 
+
+package_id: 14 vehicle_id: 1 package_position: (3, 8, 1) 
+
+package_id: 16 vehicle_id: 1 package_position: (1, 4, 0) 
+
+package_id: 19 vehicle_id: 0 package_position: (2, 4, 7) 
+
+package_id: 21 vehicle_id: 1 package_position: (10, 7, 9) 
+
+Total profit: 779
+
+Computation time: 0.20s

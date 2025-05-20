@@ -1,8 +1,11 @@
 from datetime import datetime, timedelta
 import random
 import subprocess
+import os
+import shutil
 
 """
+rodzaj_krzyzowania (one_point/uniform/heuristic)
 <liczba_vehicli>
 x y z weight_limit
 [...]
@@ -15,17 +18,18 @@ x y z priority weight cost
 # STALE DO GENEROWANIA INPUTU
 
 NUM_VEHICLES = 2
-NUM_PACKAGES = 6
+NUM_PACKAGES = 7
 CONST_PRIOR = True
+USE_SACK = False
 
-VEHICLE_SIZE_RANGE = (1, 6)
+VEHICLE_SIZE_RANGE = (1, 7)
 WEIGHT_LIMIT_RANGE = (50, 200)
 
-PACKAGE_SIZE_RANGE = (1, 4)
-WEIGHT_RANGE = (5, 50)
+PACKAGE_SIZE_RANGE = (1, 3)
+WEIGHT_RANGE = (5, 30)
 PRIORITY_RANGE = (1, 5)
 COST_RANGE = (10, 100)
-NUM_TESTS = 10
+NUM_TESTS = 5
 
 
 def generate_position(size_range):
@@ -73,6 +77,8 @@ def generate_input():
 
 
 if __name__ == "__main__":
+    os.makedirs("./tests", exist_ok=True)
+
     for i in range(NUM_TESTS):
         print(i)
         input = generate_input()
@@ -81,36 +87,42 @@ if __name__ == "__main__":
         output_heuristic = subprocess.run(
             [
                 "../heuristic_solve.out"
-            ],  # tu podaj odpowiednia sciezke gdzie jest skompliowany solve.cpp
+            ],
             input=input.encode(),
             capture_output=True,
         )
         end_heur = datetime.now()
         heur_duration = end_heur-start_heur
 
+        crossing_type = "uniform"
+        input_genetic = f"{crossing_type}\n" + input # crossover strategy, hardcoded!
         start_gen = datetime.now()
         output_genetic = subprocess.run(
             [
                 "../genetic_solve.out"
-            ],  # tu podaj odpowiednia sciezke gdzie jest skompliowany solve.cpp
-            input=input.encode(),
+            ],
+            input=input_genetic.encode(),
             capture_output=True,
         )
         end_gen = datetime.now()
         gen_duration = end_gen-start_gen
 
-        start_sack = datetime.now()
-        output_sack = subprocess.run(
-            [
-                "../knapsack_solve.out"
-            ],  # tu podaj odpowiednia sciezke gdzie jest skompliowany solve.cpp
-            input=input.encode(),
-            capture_output=True,
-        )
-        end_sack = datetime.now()
-        sack_duration = end_sack-start_sack
+        # copy csv file only for genetic algorithm
+        shutil.copyfile("../utils/stats.csv", f"./tests/test{i}.csv")
 
-        with open(f"../knapsack_tests/tests{10+i}.txt", "w") as file:
+        if USE_SACK:
+            start_sack = datetime.now()
+            output_sack = subprocess.run(
+                [
+                    "../knapsack_solve.out"
+                ],
+                input=input.encode(),
+                capture_output=True,
+            )
+            end_sack = datetime.now()
+            sack_duration = end_sack-start_sack
+
+        with open(f"./tests/test{i}.txt", "w") as file:
             file.write("===TEST CASE===\n")
             file.write("\nInput:\n")
             file.write(input + "\n")
@@ -118,8 +130,10 @@ if __name__ == "__main__":
             file.write(output_genetic.stdout.decode() + "\n")
             file.write(f"\nComputation time: {gen_duration.total_seconds():.2f}s" + "\n")
             file.write("\nHeuristic Output:\n")
-            file.write(output_genetic.stdout.decode() + "\n")
+            file.write(output_heuristic.stdout.decode() + "\n")
             file.write(f"\nComputation time: {heur_duration.total_seconds():.2f}s" + "\n")
-            file.write("\nKnapsack Output:\n")
-            file.write(output_sack.stdout.decode() + "\n")
-            file.write(f"\nComputation time: {sack_duration.total_seconds():.2f}s" + "\n")
+
+            if USE_SACK:
+                file.write("\nKnapsack Output:\n")
+                file.write(output_sack.stdout.decode() + "\n")
+                file.write(f"\nComputation time: {sack_duration.total_seconds():.2f}s" + "\n")

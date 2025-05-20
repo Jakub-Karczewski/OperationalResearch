@@ -1,0 +1,13 @@
+Best solution found: 
+package_id: 0 vehicle_id: 2 package_position: (3, 14, 0) 
+package_id: 1 vehicle_id: 0 package_position: (4, 9, 0) 
+package_id: 3 vehicle_id: 0 package_position: (7, 5, 0) 
+package_id: 5 vehicle_id: 4 package_position: (4, 12, 0) 
+package_id: 7 vehicle_id: 3 package_position: (11, 9, 0) 
+package_id: 8 vehicle_id: 4 package_position: (4, 14, 2) 
+package_id: 12 vehicle_id: 3 package_position: (12, 2, 0) 
+package_id: 13 vehicle_id: 3 package_position: (11, 11, 7) 
+package_id: 15 vehicle_id: 3 package_position: (13, 5, 1) 
+package_id: 18 vehicle_id: 3 package_position: (12, 9, 7) 
+Total profit: 489
+

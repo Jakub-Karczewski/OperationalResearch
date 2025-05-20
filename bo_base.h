@@ -24,10 +24,11 @@ namespace std {
 } // namespace std
 
 struct Package {
-    Package(Position size, int weight, int cost);
+    Package(Position size, int weight, int cost, int id);
     Position size;
     int weight;
     int cost;
+    int ID;
 };
 
 struct Vehicle {

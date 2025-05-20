@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 #include "bo_base.h"
 
-#include "heuristic.h"
 
 
 
@@ -32,7 +31,7 @@ pair< long long, vector<Solution> > build_solution_from_assignment_knapsack(cons
         for(int j = int(divide_packages[i].size()-1); j >= 0; j--){
             pref_sum[j] = pref_sum[j+1] + divide_packages[i][j].cost;
         }
-        long long XD = 0ll;
+
         pair<long long, vector<Solution>> res_i = knapsack_problem(packages, where_placed, pkgs_IDs[i],
                                                                    map1, 0, 0ll, weights, pref_sum,
                                                                    vis, only_one, one_vehicle_ID);
@@ -67,13 +66,13 @@ pair < long long, vector<Solution>> knapsack_raw(const vector<Package>& packages
             vehicle_IDs[i] = i;
         }
     for (int i = 0; i < packages.size(); i++){
-        packages_IDs[i] = i;
+        packages_IDs[i] = packages[i].ID;
     }
 
     for(int i = int(packages.size()-1); i >= 0; i--){
         pref_sum[i] = pref_sum[i+1] + packages[i].cost;
     }
-    long long XD = 0ll;
+
     return knapsack_problem(packages, where_placed, packages_IDs, map1, 0, 0ll, weights,
                             pref_sum, vis, vehicles, vehicle_IDs);
 
@@ -102,17 +101,10 @@ int main() {
     for (int i = 0; i < num_of_packages; i++) {
         int x, y, z, prio, w, cost;
         cin >> x >> y >> z >> prio >> w >> cost;
-        packages.emplace_back(Position{x-1, y-1, z-1}, w, cost);
-        packages_check.emplace_back(Position{x, y, z}, w, cost);
+        packages.emplace_back(Position{x-1, y-1, z-1}, w, cost, i);
+        packages_check.emplace_back(Position{x, y, z}, w, cost, i);
     }
 
-    /*
-    sort(packages.begin(), packages.end(),
-         [](const Package &a,
-            const Package &b) { // first by prio (desc) then by cost (desc)
-             return b.cost <= a.cost;
-         });
-    */
 
     auto solutions = knapsack_raw(packages, vehicles);
 

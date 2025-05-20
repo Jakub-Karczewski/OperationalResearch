@@ -1,0 +1,15 @@
+Best solution found: 
+Paramaters: 250 60 25 60
+package_id: 1 vehicle_id: 3 package_position: (11, 10, 0) 
+package_id: 2 vehicle_id: 3 package_position: (12, 3, 0) 
+package_id: 3 vehicle_id: 4 package_position: (6, 13, 0) 
+package_id: 5 vehicle_id: 4 package_position: (4, 8, 0) 
+package_id: 6 vehicle_id: 0 package_position: (2, 10, 0) 
+package_id: 7 vehicle_id: 3 package_position: (8, 6, 0) 
+package_id: 9 vehicle_id: 3 package_position: (9, 0, 0) 
+package_id: 12 vehicle_id: 0 package_position: (5, 3, 0) 
+package_id: 13 vehicle_id: 3 package_position: (11, 11, 5) 
+package_id: 14 vehicle_id: 0 package_position: (2, 11, 4) 
+package_id: 17 vehicle_id: 4 package_position: (3, 3, 0) 
+Total profit: 453
+

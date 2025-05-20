@@ -1,0 +1,11 @@
+solve
+tempCodeRunnerFile.cpp
+.cph/
+.git/
+.vscode/
+*.exe
+.idea/
+cmake-build-debug/
+*.out
+utils/stats.csv
+venv/
